@@ -1,0 +1,388 @@
+/* ==========================================================
+   Кофе Шоп — Лаб 5: Responsive статик вэб хуудас
+   Mobile-First: үндсэн CSS нь гар утсанд (375px),
+   дараа нь @media (min-width) -ээр таблет, компьютер.
+   Breakpoints: 768px (Tablet), 1024px (Desktop)
+   ========================================================== */
+
+:root {
+  --ink: #241c17;
+  --muted: #5e5650;
+  --bg: #fafaf7;
+  --surface: #efefea;
+  --line: #d6d6cf;
+  --accent: #2f5d50;
+  --accent-dark: #244a40;
+  --placeholder: #d9ddd8;
+
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-head: Georgia, "Times New Roman", serif;
+}
+
+/* ---------- Reset / суурь ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* padding нэмэгдээд өргөн хэтрэхээс сэргийлнэ */
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+}
+
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1rem; }
+
+p { margin: 0 0 1rem; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* ---------- Товчлуур ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-dark {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-dark:hover { background: var(--accent-dark); }
+
+.btn-light {
+  background: #fff;
+  color: var(--accent-dark);
+}
+
+.btn-light:hover { background: var(--surface); }
+
+/* ---------- Header + навигаци (Mobile) ---------- */
+.site-header {
+  position: relative; /* гар утасны цэсийг header-ийн доор байрлуулахад */
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+}
+
+.logo {
+  font-family: var(--font-head);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Hamburger товч */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+}
+
+/* Цэс: гар утсан дээр нуугдсан, нээгдэхэд header-ийн доор гарна */
+.site-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-nav.is-open {
+  display: block;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  display: block;
+  padding: 0.85rem 16px;
+  text-decoration: none;
+  border-top: 1px solid var(--line);
+}
+
+.site-nav a:hover {
+  background: var(--line);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--accent);
+  color: #fff;
+  padding-block: 2rem;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero p {
+  color: #e3ece8;
+}
+
+.hero .btn {
+  align-self: center; /* wireframe дээрх шиг товч голлоно */
+  margin-top: 0.5rem;
+}
+
+/* ---------- Хэсгүүд ---------- */
+.section {
+  padding-block: 1.75rem;
+}
+
+/* ---------- Кофены картууд (Mobile: 1 багана) ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.card-media {
+  height: 96px;
+  margin-bottom: 0.75rem;
+  background: var(--placeholder);
+  border-radius: 2px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Холбоо барих маягт ---------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  font-size: 1rem; /* iOS дээр автоматаар томрохоос сэргийлнэ */
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.contact-form .btn {
+  align-self: flex-start;
+}
+
+.form-status {
+  margin: 0;
+  color: var(--accent-dark);
+  font-size: 0.9rem;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding-block: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ==========================================================
+   TABLET — 768px ба түүнээс дээш
+   Цэс hamburger хэвээр, картууд 2 баганатай
+   ========================================================== */
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 24px;
+  }
+
+  .site-nav a {
+    padding-inline: 24px;
+  }
+
+  h1 { font-size: 1.85rem; }
+  h2 { font-size: 1.4rem; }
+
+  .hero {
+    padding-block: 2.75rem;
+  }
+
+  .section {
+    padding-block: 2.25rem;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Гурав дахь карт бүтэн өргөнөөр */
+  .card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================
+   DESKTOP — 1024px ба түүнээс дээш
+   Цэс хэвтээ мөрөнд, картууд 3 баганатай
+   ========================================================== */
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: 32px;
+  }
+
+  /* Hamburger-ийг нууж, цэсийг header дотор мөрөнд харуулна */
+  .menu-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .site-nav.is-open {
+    display: block;
+    position: static;
+    background: transparent;
+    border: 0;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .site-nav a {
+    padding: 0.5rem 0;
+    border: 0;
+  }
+
+  .site-nav a:hover {
+    background: transparent;
+    text-decoration: underline;
+  }
+
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.5rem; }
+
+  .hero {
+    padding-block: 3.5rem;
+  }
+
+  .section {
+    padding-block: 2.5rem;
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .card:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .card-media {
+    height: 120px;
+  }
+}

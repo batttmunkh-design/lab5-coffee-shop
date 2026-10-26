@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кофе Шоп</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top">Кофе Шоп</a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Цэс нээх">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Үндсэн цэс">
+        <ul>
+          <li><a href="#about">Бидний тухай</a></li>
+          <li><a href="#menu">Цэс</a></li>
+          <li><a href="#contact">Холбоо барих</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Тавтай морил, Кофе Шоп</h1>
+        <p>Шинэхэн шарсан кофе, гар хийцийн амттан.</p>
+        <a class="btn btn-light" href="#menu">Цэс үзэх</a>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <h2>Бидний тухай</h2>
+        <p>Бид 2020 оноос хойш Улаанбаатарт шинэхэн шарсан кофе, гар хийцийн амттанг хүргэж байна.</p>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="container">
+        <h2>Манай кофе</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="card-media" role="img" aria-label="Эспрессо кофены зураг"></div>
+            <h3>Эспрессо</h3>
+            <p>Хүчтэй, цэвэр амт. 4,500₮</p>
+          </article>
+
+          <article class="card">
+            <div class="card-media" role="img" aria-label="Латте кофены зураг"></div>
+            <h3>Латте</h3>
+            <p>Зөөлөн сүүтэй кофе. 6,500₮</p>
+          </article>
+
+          <article class="card">
+            <div class="card-media" role="img" aria-label="Капучино кофены зураг"></div>
+            <h3>Капучино</h3>
+            <p>Сүүн хөөстэй амт. 6,000₮</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <h2>Холбоо барих</h2>
+        <form class="contact-form" action="#" method="post">
+          <label class="visually-hidden" for="name">Нэр</label>
+          <input id="name" name="name" type="text" placeholder="Нэр" autocomplete="name" required>
+
+          <label class="visually-hidden" for="email">И-мэйл</label>
+          <input id="email" name="email" type="email" placeholder="И-мэйл" autocomplete="email" required>
+
+          <label class="visually-hidden" for="message">Зурвас</label>
+          <textarea id="message" name="message" rows="4" placeholder="Зурвас" required></textarea>
+
+          <button class="btn btn-dark" type="submit">Илгээх</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Кофе Шоп</p>
+    </div>
+  </footer>
+
+  <script>
+    // Гар утас/таблет дээрх цэс нээх, хаах
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('site-nav');
+
+    function setMenu(open) {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Цэс хаах' : 'Цэс нээх');
+    }
+
+    toggle.addEventListener('click', () => {
+      setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Холбоос дарахад цэс хаагдана
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenu(false));
+    });
+
+    // Хэрэглэгч Esc дарвал цэс хаагдана
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
+    });
+
+    // Статик хуудас тул маягтыг серверт илгээхгүй, зөвхөн мэдэгдэл харуулна
+    const form = document.querySelector('.contact-form');
+    const status = form.querySelector('.form-status');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      status.textContent = 'Таны зурвас илгээгдлээ. Баярлалаа!';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
